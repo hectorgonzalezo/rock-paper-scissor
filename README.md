@@ -1,3 +1,4 @@
-# Rock, Paper, Scissor implemented on Javascript.
+# Rock, Paper, Scissors
 
-Done as part of The Odin Project's curriculum
+Implemented on Javascript.
+Done as part of The Odin Project's curriculum.
