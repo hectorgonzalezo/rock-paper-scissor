@@ -108,7 +108,9 @@ function removeListener () {
 }
 
 
-//us with choices for player
+//front end part
+
+//buttons with choices for player
 const playerButtons = document.querySelectorAll('.play-button');
 
 //scores
