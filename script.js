@@ -15,7 +15,7 @@ function computerPlay() {
 //Plays a round of the game
 //compares user input with play chosen randomly
 //Returns a string with the result
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection = computerPlay()) {
 
     //capitalize both selections, so that there is no conflict with different cases
     playerSelection = capitalize(playerSelection)
@@ -61,16 +61,16 @@ function game() {
     let ties = 0;
     let wins = 0;
     let loses = 0;
-    for (let i =0; i < 5;) {
+    for (let i = 0; i < 5;) {
         let playerSelection = prompt("Enter your choice: Rock, Paper or Scissors")
-        let result = playRound(playerSelection, computerPlay())
+        let result = playRound(playerSelection)
         console.log(result)
 
         //only continue loop if input by user is valid
         if (result != "That's not a valid option!") {
             i++
 
-            switch (result.slice(4,7)) {
+            switch (result.slice(4, 7)) {
                 case 'Win':
                     wins += 1;
                     break
@@ -85,8 +85,8 @@ function game() {
     }
 
     console.log(determineWinner(ties, wins, loses))
-    
-}
+
+};
 
 function determineWinner(ties, wins, loses) {
     if (wins > loses) {
@@ -98,4 +98,20 @@ function determineWinner(ties, wins, loses) {
     else {
         return "The whole game is a tie."
     }
-}
+};
+
+
+
+//listens to buttons with choices for player
+const playerButtons = document.querySelectorAll('.play-button');
+
+//add listener for each button. 
+playerButtons.forEach(
+    button => button.addEventListener('click', (e) => {
+        //play round using the text of the button as input
+        console.log(playRound(e.target.innerText))
+    }
+    )
+);
+
+//button.textContent
