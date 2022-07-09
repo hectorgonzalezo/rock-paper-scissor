@@ -56,62 +56,79 @@ function winOrLoose(playerSelection, computerSelection, winChoice, looseChoice) 
 }
 
 
-//plays 5 rounds and reports a winner at the end
-function game() {
-    let ties = 0;
-    let wins = 0;
-    let loses = 0;
-    for (let i = 0; i < 5;) {
-        let playerSelection = prompt("Enter your choice: Rock, Paper or Scissors")
-        let result = playRound(playerSelection)
-        console.log(result)
+//used for the player button's eventListener
+//input is the event
+function listener(e) {
+    //play round using the text of the button as input
+    result = playRound(e.target.innerText);
 
-        //only continue loop if input by user is valid
-        if (result != "That's not a valid option!") {
-            i++
+    //choose a random color for display
+    
 
-            switch (result.slice(4, 7)) {
-                case 'Win':
-                    wins += 1;
-                    break
-                case 'Loo':
-                    loses += 1;
-                    break
-                case ' a ':
-                    ties += 1;
-                    break
-            }
-        }
-    }
+    resultDisplay.innerText = result;
 
-    console.log(determineWinner(ties, wins, loses))
+    resultDisplay.style.color = '#'+Math.floor(Math.random()*16777215).toString(16);
+    console.log(resultDisplay.style);
 
+    if (result != "That's not a valid option!") {
+        updateScore(result) ;
+    };
 };
 
-function determineWinner(ties, wins, loses) {
-    if (wins > loses) {
-        return "Congratulations!  You win the game."
+function updateScore (result) {
+    console.log(result)
+    switch (result.slice(4, 7)) {
+        case 'Win':
+            wins += 1;
+            playerScore.innerText = `Player = ${wins}`;
+            break
+        case 'Loo':
+            loses += 1;
+            computerScore.innerText = `Computer = ${wins}`;
+            break
+        case ' a ':
+            break
+    };
+
+    //if player or computer reach 5 points, the game ends.
+    if (wins == 5) {
+        resultDisplay.innerText = "Congratulations, you win the game!";
+        removeListener()
     }
-    else if (loses > wins) {
-        return "I'm sorry! You loose the game."
-    }
-    else {
-        return "The whole game is a tie."
+    if (loses == 5) {
+        resultDisplay.innerText = "Sorry, you lost the game.";
+        removeListener()
     }
 };
 
+function removeListener () {
+    playerButtons.forEach(
+        button => button.removeEventListener('click', listener)
+    )
+}
 
 
-//listens to buttons with choices for player
+//us with choices for player
 const playerButtons = document.querySelectorAll('.play-button');
+
+//scores
+const playerScore = document.querySelector('.player-score')
+const computerScore = document.querySelector('.computer-score')
+
+//variables that keep the score
+let wins = 0;
+let loses = 0;
+
+//create an element with result of each round
+const resultDisplay = document.createElement('h2')
+resultDisplay.classList.add('result')
+resultDisplay.innerText = 'juan'
+
+//display the result
+const displayingArea = document.querySelector('.displaying-area')
+displayingArea.appendChild(resultDisplay)
 
 //add listener for each button. 
 playerButtons.forEach(
-    button => button.addEventListener('click', (e) => {
-        //play round using the text of the button as input
-        console.log(playRound(e.target.innerText))
-    }
-    )
-);
-
-//button.textContent
+    button => button.addEventListener('click', listener)
+    );
