@@ -21,6 +21,10 @@ function playRound(playerSelection, computerSelection = computerPlay()) {
     playerSelection = capitalize(playerSelection)
     computerSelection = capitalize(computerSelection)
 
+    //change hand image depending on choices
+    playerImage.src = `./images/${playerSelection}.png`
+    computerImage.src = `./images/${computerSelection}.png`
+
     //check if it's a tie. If not, run function that calculates result
     if (playerSelection === computerSelection) {
         return "It's a tie!"
@@ -62,13 +66,14 @@ function listener(e) {
     //play round using the text of the button as input
     result = playRound(e.target.innerText);
 
-    //choose a random color for display
-    
+    //restarts display animation
+    resultDisplay.classList.remove('result')
+    void resultDisplay.offsetWidth;
+    resultDisplay.classList.add('result')
 
     resultDisplay.innerText = result;
 
-    resultDisplay.style.color = '#'+Math.floor(Math.random()*16777215).toString(16);
-    console.log(resultDisplay.style);
+    //resultDisplay.style.color = '#'+Math.floor(Math.random()*16777215).toString(16);
 
     if (result != "That's not a valid option!") {
         updateScore(result) ;
@@ -76,15 +81,14 @@ function listener(e) {
 };
 
 function updateScore (result) {
-    console.log(result)
     switch (result.slice(4, 7)) {
         case 'Win':
             wins += 1;
-            playerScore.innerText = `Player = ${wins}`;
+            playerScore.innerText = `Score = ${wins}`;
             break
         case 'Loo':
             loses += 1;
-            computerScore.innerText = `Computer = ${loses}`;
+            computerScore.innerText = `Score = ${loses}`;
             break
         case ' a ':
             break
@@ -117,20 +121,21 @@ const playerButtons = document.querySelectorAll('.play-button');
 const playerScore = document.querySelector('.player-score')
 const computerScore = document.querySelector('.computer-score')
 
+const playerImage = document.querySelector('.player-image')
+const computerImage = document.querySelector('.computer-image')
+
 //variables that keep the score
 let wins = 0;
 let loses = 0;
 
 //create an element with result of each round
-const resultDisplay = document.createElement('h2')
-resultDisplay.classList.add('result')
-resultDisplay.innerText = 'juan'
-
-//display the result
-const displayingArea = document.querySelector('.displaying-area')
-displayingArea.appendChild(resultDisplay)
+const resultDisplay = document.querySelector('.result')
 
 //add listener for each button. 
 playerButtons.forEach(
     button => button.addEventListener('click', listener)
     );
+
+const restartButton = document.querySelector('.restart-button')
+
+restartButton.addEventListener('click', (e) => location.reload())
