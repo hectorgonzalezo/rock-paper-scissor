@@ -3,8 +3,50 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .result,
 .score {
     color: blue;
     font-size: large;
+}
+
+.playing-area,
+.displaying-area {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 5px;
+}
+
+.playing-area {
+    width: 60%;
+    gap : 3%;
+}
+
+.play-button {
+    font-size: 50px;
+    border-radius: 40%;
+    padding: 15px;
+    background-color: rgb(160, 208, 247);
+    box-shadow: 0 2px 4px darkslategray;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 10px;
+}
+
+.play-button:active {
+    background-color: #48abe0;
+    box-shadow: 0 0 2px darkslategray;
+    transform: translateY(2px);
+  }
+
+
+.displaying-area {
+    flex-direction: column;
+    width: 30%;
 }

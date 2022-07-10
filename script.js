@@ -84,7 +84,7 @@ function updateScore (result) {
             break
         case 'Loo':
             loses += 1;
-            computerScore.innerText = `Computer = ${wins}`;
+            computerScore.innerText = `Computer = ${loses}`;
             break
         case ' a ':
             break
